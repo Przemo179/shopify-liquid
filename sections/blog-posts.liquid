@@ -1,0 +1,44 @@
+{% assign blog = section.settings.new-blog %}
+
+{% unless blog.articles_count == 0 %}
+<div class="page-width"></div>
+  <div class="grid grid--uniform grid--blog">
+  {% for article in blog.articles limit: section.settings.posts-range %}
+    <a href="{{article.url}}">
+      {{ article.title }}
+    </a>
+    <a href="{{article.url}}">
+      <img src="{{ article.image | image_url: width: 400 }}" />
+    </a>
+  {% endfor %}
+  </div>
+</div>
+
+{% endunless %}
+
+{% schema %}
+  {
+    "name": "New Blog Posts",
+    "settings": [
+      {
+        "id": "posts-range",
+        "type": "range",
+        "label": "A range in blog",
+        "default": 3,
+        "min": 3,
+        "max": 12,
+        "step": 3
+      }, {
+        "id": "new-blog",
+        "type": "blog",
+        "label": "Blog"
+      }
+    ],
+    "presets": [
+      {
+        "name": "New Blog Posts",
+        "category": "Posts"
+      }
+    ]
+  }
+{% endschema %}
